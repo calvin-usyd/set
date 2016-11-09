@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<title>{{isset(@title) ? @title : 'SET Development'}} | Quantumfi</title>
+	<!-- Description, Keywords and Author -->
+	<meta name="description" content="Physics particle drawing simulation | PREPS">
+	<meta name="keywords" content="Physics particle drawing simulation">
+	<meta name="author" content="PREPS">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" href="/img/logo.png">
+	<!--link href="/views/css/main.css" rel="stylesheet"-->
+	
+	<!--link rel="stylesheet" href="//quantumfi.com.au/shared/bootstrap/css/bootstrap.min.css" media="screen"-->
+	<link rel="stylesheet" href="//bootswatch.com/{{@SESSION.guiTheme}}/bootstrap.min.css" media="screen" id="guiTheme">
+	<!--link rel="stylesheet" href="/views/css/bootswatch.min.css"-->
+	
+	<!--script src="/views/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+	<script src="/views/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+	<script src="//quantumfi.com.au/shared/bootstrap/js/bootstrap.min.js"></script-->
+</head>
+
+<body ondragstart="return false" onselectstart="return false" oncontextmenu="return false">
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//quantumfi.com.au/shared/bootstrap/js/bootstrap.min.js"></script>
+	<script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
+	<script>
+	$(function() {
+		var loadjscssfile = function(filename, filetype){
+			filename = filename + ('?' + (new Date()).getMilliseconds());
+
+			if (filetype=="js"){ //if filename is a external JavaScript file
+				var fileref=document.createElement('script')
+				fileref.setAttribute("type","text/javascript")
+				fileref.setAttribute("src", filename)
+			}
+			else if (filetype=="css"){ //if filename is an external CSS file
+				var fileref=document.createElement("link")
+				fileref.setAttribute("rel", "stylesheet")
+				fileref.setAttribute("type", "text/css")
+				fileref.setAttribute("href", filename)
+			}
+			if (typeof fileref!="undefined")
+				document.getElementsByTagName("head")[0].appendChild(fileref)
+		}
+		loadjscssfile("js/main.js", "js");
+	});
+	</script>
+	
+	<div class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/project" class="navbar-brand">SET Dev</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <li class="{{(@navTab == 'project') ? 'active' : '';}}">
+              <a href="/project" id="themes">Projects</a>
+            </li>
+			<CHECK if="{{isset(@projectId)}}">
+			<!--li class="{{(@navTab == 'requirement') ? 'active' : '';}}">
+				<form action="/requirement" method="post" id="menuReqForm">
+					<input type="hidden" name="projectId" value="{{@projectId}}">
+					<input type="hidden" name="projectName" value="{{@projectName}}">
+				</form>
+				<a href="#" onclick="document.getElementById('menuReqForm').submit();">Requirement</a>
+			</li-->
+			
+			<li class="{{(@navTab == 'todo') ? 'active' : '';}}">
+				<form action="/todo" method="post" id="menuTodoForm">
+					<input type="hidden" name="projectId" value="{{@projectId}}">
+					<input type="hidden" name="projectName" value="{{@projectName}}">
+				</form>
+				<a href="#" onclick="document.getElementById('menuTodoForm').submit();">Todo</a>
+			</li>
+			
+			<li class="{{(@navTab == 'user') ? 'active' : '';}}">
+				<form action="/user" method="post" id="menuUserForm">
+					<input type="hidden" name="projectId" value="{{@projectId}}">
+					<input type="hidden" name="projectName" value="{{@projectName}}">
+				</form>
+				<a href="#" onclick="document.getElementById('menuUserForm').submit();">User</a>
+			</li>
+			</CHECK>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+			<li class="dropdown">
+			  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Theme <span class="caret"></span></a>
+			  <ul class="dropdown-menu" role="menu">
+				<li><a href="#" onclick="changeGuiTheme(event, 'cerulean')">cerulean</a></li>
+				<li><a href="#" onclick="changeGuiTheme(event, 'cyborg')">cyborg</a></li>
+				<li><a href="#" onclick="changeGuiTheme(event, 'darkly')">darkly</a></li>
+				<li><a href="#" onclick="changeGuiTheme(event, 'flatly')">flatly</a></li>
+				<li><a href="#" onclick="changeGuiTheme(event, 'lumen')">lumen</a></li>
+				<li><a href="#" onclick="changeGuiTheme(event, 'simplex')">simplex</a></li>
+				<li><a href="#" onclick="changeGuiTheme(event, 'slate')">slate</a></li>
+				<li><a href="#" onclick="changeGuiTheme(event, 'spacelab')">spacelab</a></li>
+				<li><a href="#" onclick="changeGuiTheme(event, 'superhero')">superhero</a></li>
+				<li><a href="#" onclick="changeGuiTheme(event, 'cosmo')">cosmo</a></li>
+				<li><a href="#" onclick="changeGuiTheme(event, 'journal')">journal</a></li>
+				<li><a href="#" onclick="changeGuiTheme(event, 'paper')">paper</a></li>
+				<li><a href="#" onclick="changeGuiTheme(event, 'readable')">readable</a></li>
+				<li><a href="#" onclick="changeGuiTheme(event, 'sandstone')">sandstone</a></li>
+				<li><a href="#" onclick="changeGuiTheme(event, 'united')">united</a></li>
+				<li><a href="#" onclick="changeGuiTheme(event, 'yeti')">yeti</a></li>
+			  </ul>
+			</li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+	<main class="container" id="preps">
+	<div class="row">
+		<article class="col-lg-12">
+			<include href="{{ @inc }}" />
+		</article>
+	</div>
+	</main>
+</body>
+</html>
