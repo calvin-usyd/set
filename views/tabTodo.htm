@@ -1,7 +1,4 @@
-<div class="frontpage">
-<div class="col-lg-12 text-center">
-	<h1>{{@projectName}} To Do </h1>
-</div>
+<div class="tab-pane fade {{@SESSION.tab == 'todoTab'?'active in':'';}}" id="todo">
 <script>
 function expandFull(obj){
 	if ($('#colFormTodo').hasClass('col-lg-5')){
@@ -14,7 +11,7 @@ function expandFull(obj){
 	}
 }
 </script>
-<div class="col-lg-5 well" id="colFormTodo">
+<div class="col-lg-5 well pull-right" id="colFormTodo">
 	<div class="progress progress-striped active hide">
 	  <div class="progress-bar" style="width: 45%"></div>
 	</div>
@@ -27,7 +24,7 @@ function expandFull(obj){
 		<div class="form-group">
 		  <label class="control-label">Task</label>
 			<input type="text" class="form-control" name="name" placeholder="Add new Task">
-			<input type="text" class="hide" name="projectId" value="{{@projectId}}">
+			<input type="text" class="hide" name="projectId" value="{{@PARAMS.projectId}}">
 			<input type="text" class="hide" name="toDoId">
 		</div>
 		<div class="form-group">
@@ -66,22 +63,20 @@ function expandFull(obj){
 <div class="col-lg-7">
 <fieldset>
 	<legend class="text-danger">List</legend>
-	<table class="table table-striped table-hover ">
+	<table class="table table-striped table-hover sortable">
 		<thead>
 			<tr>
-			  <th>#</th>
 			  <th>Task</th>
 			  <th>Priority</th>
 			  <th>Status</th>
-			  <th>Delete</th>
+			  <th class="sorttable_nosort">Delete</th>
 			</tr>
 		</thead>
 		<tbody>
-			<CHECK if="{{isset(@results) && count(@results) > 0}}">
+			<CHECK if="{{isset(@resultsTodo) && count(@resultsTodo) > 0}}">
 			<TRUE>
-				<REPEAT group="{{@results}}" value="{{@val}}" counter="{{@index}}">
+				<REPEAT group="{{@resultsTodo}}" value="{{@val}}" counter="{{@index}}">
 				<tr>
-				  <td>{{@index}}</td>
 				  <td>
 				    <div id="todoName{{@index}}" data="{{@val.name}}"></div>
 				    <div id="toDoId{{@index}}" data="{{@val.toDoId}}"></div>

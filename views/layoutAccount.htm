@@ -9,22 +9,34 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<link rel="shortcut icon" href="/img/logo.png">
-	<!--link href="/views/css/main.css" rel="stylesheet"-->
-	
-	<!--link rel="stylesheet" href="//quantumfi.com.au/shared/bootstrap/css/bootstrap.min.css" media="screen"-->
-	<link rel="stylesheet" href="//bootswatch.com/{{@SESSION.guiTheme}}/bootstrap.min.css" media="screen" id="guiTheme">
-	<!--link rel="stylesheet" href="/views/css/bootswatch.min.css"-->
-	
-	<!--script src="/views/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-	<script src="/views/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-	<script src="//quantumfi.com.au/shared/bootstrap/js/bootstrap.min.js"></script-->
+	<link rel="stylesheet" href="//bootswatch.com/{{@SESSION.guiTheme}}/bootstrap.min.css" media="screen" id="guiTheme">	
+	<style>
+	table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
+		content: " \25B4\25BE" 
+	}
+	table.sortable tbody {
+		counter-reset: sortabletablescope;
+	}
+	table.sortable thead tr::before {
+		content: "";
+		display: table-cell;
+	}
+	table.sortable tbody tr::before {
+		content: counter(sortabletablescope);
+		counter-increment: sortabletablescope;
+		display: table-cell;
+		padding: 10px 5px 10px 10px;
+		background-color: rgba(243, 238, 238, 0.83);
+	}
+	</style>
 </head>
 
-<body ondragstart="return false" onselectstart="return false" oncontextmenu="return false">
+<body>
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="//quantumfi.com.au/shared/bootstrap/js/bootstrap.min.js"></script>
 	<script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
+	<script type="text/javascript" src="//quantumfi.com.au/shared/sorttable.min.js"></script>
 	<script>
 	$(function() {
 		var loadjscssfile = function(filename, filetype){
@@ -44,7 +56,7 @@
 			if (typeof fileref!="undefined")
 				document.getElementsByTagName("head")[0].appendChild(fileref)
 		}
-		loadjscssfile("js/main.js", "js");
+		loadjscssfile("/js/main.js", "js");
 	});
 	</script>
 	

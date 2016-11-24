@@ -112,10 +112,26 @@ class SetProjectController extends SetAccountController
 		
 		$f3->set('navTab', 'project');
 		
-		$f3->set('inc', 'project.htm');
+		$f3->set('inc', 'home.htm');
 	}
 	
 	private function getAll($username){
 		return $this->viewProject->getByArray(array('username=?', $username));
+	}
+	
+	public function viewAllUnderProject($f3){
+		$projectIdArr = array('projectId=?', $f3->get('PARAMS.projectId'));
+		$this->viewProject->getByArray($projectIdArr);
+		
+		$f3->set('resultsProject', $this->viewProject);
+		$f3->set('resultsTodo', $this->todo->getByArray($projectIdArr));
+		$f3->set('resultsProjectUser', $this->projectUser->getByArray($projectIdArr));
+		
+		$f3->set('inc', 'project.htm');
+	}
+	
+	public function setTabSession($f3){
+		$f3->set('SESSION.tab', $f3->get('POST.type'));
+		die();
 	}
 }

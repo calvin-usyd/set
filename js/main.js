@@ -11,7 +11,8 @@ var urls = {
 	tDelete : "/todoDelete",
 	uDelete : "/userDelete",
 	
-	setGuiTheme : "/setGuiTheme"
+	setGuiTheme : "/setGuiTheme",
+	setTabSession : "/setTabSession"
 };
 
 $(document).ready(function(){
@@ -98,9 +99,16 @@ $(document).ready(function(){
 });
 	
 $(document).ready(function(){
-	tinymce.init({selector:'textarea',height: 500});
+	tinymce.init({selector:'textarea',height: 200});
 });
 
+function setTabSession(type){
+	$.post(
+		urls.setTabSession,
+		{type:type},
+		null
+	)
+}
 function changeGuiTheme(event, theme){
 	event.preventDefault(); 
 	
